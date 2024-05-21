@@ -28,63 +28,7 @@
 
 <body>
 
-
-    <div class="split left">
-        <nav class="navigation-bar">
-            <img class="logo" src="logo.png">
-            <h1>Origin and Destination Mapping</h1>
-        </nav>
-        <div class="centered">
-            <h2>What is Origin and Destination Mapping ? </h2>
-            <p> Origin and destination mapping is the representation of the movements of the people in geographic space, from an origin to a destination. The data sets contain the details of the trips between the two or more geographic points or zones (which
-                are often represented by the zone centroid).</p>
-
-            <p>The datasets typically contain multiple non-geographic attribute information. These usually include the number of trips that take place from the origin to the destination over a given time period, sometimes the breakdown by the mode of transport
-                used for trips, and also sometimes the additional disaggregation of overall counts which may include trip counts at different time periods.
-            </p>
-
-        </div>
-
-        <div class="centered">
-            <h2> Sample Origin and Destination Mapping - Movements of the employees</h2>
-            <p> The sample data from the geo-database survey mapping the movements of the employees from their respective origin (building) to destination(institution) has been mapped in the web based platform </p>
-
-
-        </div>
-        <div class="centeredtext">
-            <h2> How to view the movements of people? </h2>
-            <p> Click on the building or the institution point on the map( right-side),to view the movement of the people from respective house to their working place(institution). </p>
-
-            <p>The lines shows the movements of the peple from a origin to a destination. The Desition institution name is updated and shown in the bottom as well as in pop-up</p>
-
-
-        </div>
-
-        <div class="centered">
-            <h3>Legend</h3>
-            <h4><span class="dot"></span> Buildings </h4>
-            <h4><span class="dot2"></span> Institutions </h4>
-        </div>
-        <div class="centered">
-            <h3> Destination </h3>
-            <h5>
-                <div id="infod">
-
-                </div>
-
-            </h5>
-        </div>
-        <div class="footer">
-            <p> Copyright &copy;
-                <script>
-                    document.write(new Date().getFullYear())
-                </script>
-                Hem Bdr Bhattarai, GIS Officer, Gelephu Thromde
-            </p>
-        </div>
-    </div>
-
-    <div class="split right" id="mapid" style="width: 50%;">
+    <div class="split" id="mapid" style="width: 100%;">
 
     </div>
 
@@ -95,12 +39,12 @@
     <script>
         var map = L.map('mapid');
         var selection;
-        var neighbourhoodZones = "https://raw.githubusercontent.com/nimaytenzin/cdrs/main/boud.geojson";
+        var neighbourhoodZones = "https://raw.githubusercontent.com/hbbhattarai/OD_Gelephu/main/data/boud.geojson";
 
         if (L.Browser.mobile) {
-            map.setView([27.4733136477, 89.6382533581], 14);
+            map.setView([26.8725114, 90.4927134], 11);
         } else {
-            map.setView([27.4733136477, 89.6382533581], 14);
+            map.setView([26.8725114, 90.4927134], 11);
         }
         var oneToManyFlowmapLayer;
         var base = L.esri.basemapLayer('DarkGray').addTo(map);
@@ -121,10 +65,10 @@
             header: true,
             dynamicTyping: true,
             skipEmptyLines: true,
-            complete: function(results) {
+            complete: function (results) {
                 var geoJsonFeatureCollection = {
                     type: 'FeatureCollection',
-                    features: results.data.map(function(datum) {
+                    features: results.data.map(function (datum) {
                         return {
                             type: 'Feature',
                             geometry: {
@@ -139,7 +83,7 @@
 
 
                 oneToManyFlowmapLayer = L.canvasFlowmapLayer(geoJsonFeatureCollection, {
-                    pointToLayer: function(point, latlng) {
+                    pointToLayer: function (point, latlng) {
                         var marker = L.circleMarker(latlng);
                         return marker.bindPopup('' + point.properties.dest_school);
                     },
@@ -159,69 +103,69 @@
                         type: 'classBreaks',
                         field: 'count',
                         classBreakInfos: [{
-                                classMinValue: 0,
-                                classMaxValue: 25,
-                                symbol: {
-                                    strokeStyle: '#5CB270',
-                                    lineWidth: 0.5,
-                                    lineCap: 'round',
+                            classMinValue: 0,
+                            classMaxValue: 25,
+                            symbol: {
+                                strokeStyle: '#5CB270',
+                                lineWidth: 0.5,
+                                lineCap: 'round',
 
-                                }
-                            }, {
-                                classMinValue: 25,
-                                classMaxValue: 50,
-                                symbol: {
-                                    strokeStyle: '#82C26E',
-                                    lineWidth: 2,
-                                    lineCap: 'round',
+                            }
+                        }, {
+                            classMinValue: 25,
+                            classMaxValue: 50,
+                            symbol: {
+                                strokeStyle: '#82C26E',
+                                lineWidth: 2,
+                                lineCap: 'round',
 
-                                }
-                            }, {
-                                classMinValue: 50,
-                                classMaxValue: 100,
-                                symbol: {
-                                    strokeStyle: '#A71E34',
-                                    lineWidth: 3.5,
-                                    lineCap: 'round',
+                            }
+                        }, {
+                            classMinValue: 50,
+                            classMaxValue: 100,
+                            symbol: {
+                                strokeStyle: '#A71E34',
+                                lineWidth: 3.5,
+                                lineCap: 'round',
 
-                                }
-                            }, {
-                                classMinValue: 100,
-                                classMaxValue: 200,
-                                symbol: {
-                                    strokeStyle: '#B21E35',
-                                    lineWidth: 5,
-                                    lineCap: 'round',
+                            }
+                        }, {
+                            classMinValue: 100,
+                            classMaxValue: 200,
+                            symbol: {
+                                strokeStyle: '#B21E35',
+                                lineWidth: 5,
+                                lineCap: 'round',
 
-                                }
-                            }, {
-                                classMinValue: 200,
-                                classMaxValue: 400,
-                                symbol: {
-                                    strokeStyle: '#BD1F36',
-                                    lineWidth: 7,
-                                    lineCap: 'round',
+                            }
+                        }, {
+                            classMinValue: 200,
+                            classMaxValue: 400,
+                            symbol: {
+                                strokeStyle: '#BD1F36',
+                                lineWidth: 7,
+                                lineCap: 'round',
 
-                                }
-                            }, {
-                                classMinValue: 400,
-                                classMaxValue: 500,
-                                symbol: {
-                                    strokeStyle: '#C71F37',
-                                    lineWidth: 9,
-                                    lineCap: 'round',
+                            }
+                        }, {
+                            classMinValue: 400,
+                            classMaxValue: 500,
+                            symbol: {
+                                strokeStyle: '#C71F37',
+                                lineWidth: 9,
+                                lineCap: 'round',
 
-                                }
-                            }, {
-                                classMinValue: 500,
-                                classMaxValue: 1000,
-                                symbol: {
-                                    strokeStyle: '#DA1E37',
-                                    lineWidth: 12,
-                                    lineCap: 'round',
+                            }
+                        }, {
+                            classMinValue: 500,
+                            classMaxValue: 1000,
+                            symbol: {
+                                strokeStyle: '#DA1E37',
+                                lineWidth: 12,
+                                lineCap: 'round',
 
-                                }
-                            },
+                            }
+                        },
 
 
                         ],
@@ -240,7 +184,7 @@
                     animationDuration: 2000
                 }).addTo(map);
 
-                oneToManyFlowmapLayer.on('click', function(e) {
+                oneToManyFlowmapLayer.on('click', function (e) {
                     console.log(e)
                     selection = e.layer.feature.properties.dest_school;
                     document.getElementById('infod').innerHTML = selection
@@ -262,25 +206,21 @@
         var neighborhood = L.geoJSON(null, {
             style: {
                 fillColor: 'white',
-                weight: 2,
-                opacity: .2,
+                weight: 3,
+                opacity: .5,
 
                 dashArray: '3',
                 fillOpacity: 0
             },
             onEachFeature: (feature, layer) => {
 
-                layer.bindTooltip(feature.properties.Name)
+                layer.bindTooltip(feature.properties.CHIWOG)
             }
         });
 
         var overlayMaps = {
             "Boundaries": neighborhood
         };
-
-
-
-
 
         fetch(neighbourhoodZones)
             .then(res => {

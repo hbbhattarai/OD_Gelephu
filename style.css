@@ -12,27 +12,11 @@ h4,
 
 .split {
     height: 100%;
-    width: 50%;
+    width: 100%;
     position: fixed;
     z-index: 1;
     top: 0;
     overflow-x: hidden;
-}
-
-
-/* Control the left side */
-
-.left {
-    left: 0;
-    background-color: rgb(108, 107, 107);
-    color: whitesmoke;
-}
-
-
-/* Control the right side */
-
-.right {
-    right: 0;
 }
 
 
