@@ -31,13 +31,13 @@
       originAndDestinationFieldIds: {
         originUniqueIdField: 'origin_id',
         originGeometry: {
-          x: 'origin_lon',
+          x: 'origin_lng',
           y: 'origin_lat'
         },
-        destinationUniqueIdField: 'destination_id',
+        destinationUniqueIdField: 'dest_id',
         destinationGeometry: {
-          x: 'destination_lon',
-          y: 'destination_lat'
+          x: 'dest_lng',
+          y: 'dest_lat'
         }
       },
 
@@ -46,10 +46,10 @@
         symbol: {
           // use canvas styling options (compare to CircleMarker styling below)
           strokeStyle: 'rgba(255, 0, 51, 0.8)',
-          lineWidth: 0.75,
+          lineWidth: 2,
           lineCap: 'round',
           shadowColor: 'rgb(255, 0, 51)',
-          shadowBlur: 1.5
+          shadowBlur: 2
         }
       },
 
@@ -57,12 +57,12 @@
         type: 'simple',
         symbol: {
           // use canvas styling options (compare to CircleMarker styling below)
-          strokeStyle: 'rgb(255, 46, 88)',
-          lineWidth: 1.25,
+          strokeStyle: 'rgb(255, 256, 88)',
+          lineWidth: 3,
           lineDashOffsetSize: 4, // custom property used with animation sprite sizes
           lineCap: 'round',
-          shadowColor: 'rgb(255, 0, 51)',
-          shadowBlur: 2
+          shadowColor: 'rgb(255, 47, 51)',
+          shadowBlur: 3.5
         }
       },
 

@@ -3,12 +3,12 @@
 
 <head>
 
-    <title>Origin and Destination Mapping | Gelephu Thromde</title>
+    <title>O-D Mapping | Gelephu Thromde</title>
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="stylesheet" href="./style.css">
 
     <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
@@ -42,25 +42,19 @@
         var neighbourhoodZones = "https://raw.githubusercontent.com/hbbhattarai/OD_Gelephu/main/data/boud.geojson";
 
         if (L.Browser.mobile) {
-            map.setView([26.92, 90.356278], 12);
+            map.setView([26.90, 90.399278], 13);
         } else {
-            map.setView([26.92, 90.356278], 12);
+            map.setView([26.90, 90.399278], 13);
         }
         var oneToManyFlowmapLayer;
-        var base = L.esri.basemapLayer('DarkGray').addTo(map);
+        var base = L.esri.basemapLayer('DarkGray');
 
-        var sat = L.tileLayer('http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}');
-        var imgaery = L.esri.basemapLayer('Imagery');
-
-        var basemaps = {
-            "World Imagery": sat,
-            "Base Map": base
+        var sat = L.tileLayer('http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}').addTo(map);
 
 
-        };
 
 
-        Papa.parse('https://raw.githubusercontent.com/kwangyel/zhicharthimphuFrontend/master/od_work_place.csv', {
+        Papa.parse('https://raw.githubusercontent.com/hbbhattarai/OD_Gelephu/main/data/od_survey.csv', {
             download: true,
             header: true,
             dynamicTyping: true,
@@ -73,7 +67,7 @@
                             type: 'Feature',
                             geometry: {
                                 type: 'Point',
-                                coordinates: [datum.zone_long, datum.zone_lat]
+                                coordinates: [datum.origin_lng, datum.origin_lat]
                             },
                             properties: datum
                         }
@@ -85,35 +79,35 @@
                 oneToManyFlowmapLayer = L.canvasFlowmapLayer(geoJsonFeatureCollection, {
                     pointToLayer: function (point, latlng) {
                         var marker = L.circleMarker(latlng);
-                        return marker.bindPopup('' + point.properties.dest_school);
+                        return marker.bindPopup('' + point.properties.destination);
                     },
                     originAndDestinationFieldIds: {
                         originUniqueIdField: 'origin_id',
                         originGeometry: {
-                            x: 'zone_long',
-                            y: 'zone_lat'
+                            x: 'origin_lng',
+                            y: 'origin_lat'
                         },
                         destinationUniqueIdField: 'dest_id',
                         destinationGeometry: {
-                            x: 'school_long',
-                            y: 'school_lat'
+                            x: 'dest_lng',
+                            y: 'dest_lat'
                         }
                     },
                     canvasBezierStyle: {
                         type: 'classBreaks',
-                        field: 'count',
+                        field: 'frequency',
                         classBreakInfos: [{
                             classMinValue: 0,
-                            classMaxValue: 25,
+                            classMaxValue: 20,
                             symbol: {
                                 strokeStyle: '#5CB270',
-                                lineWidth: 0.5,
+                                lineWidth: 1,
                                 lineCap: 'round',
 
                             }
                         }, {
-                            classMinValue: 25,
-                            classMaxValue: 50,
+                            classMinValue: 20,
+                            classMaxValue: 40,
                             symbol: {
                                 strokeStyle: '#82C26E',
                                 lineWidth: 2,
@@ -121,44 +115,44 @@
 
                             }
                         }, {
-                            classMinValue: 50,
-                            classMaxValue: 100,
+                            classMinValue: 40,
+                            classMaxValue: 60,
                             symbol: {
                                 strokeStyle: '#A71E34',
-                                lineWidth: 3.5,
+                                lineWidth: 4,
+                                lineCap: 'round',
+
+                            }
+                        }, {
+                            classMinValue: 60,
+                            classMaxValue: 80,
+                            symbol: {
+                                strokeStyle: '#B21E35',
+                                lineWidth: 6,
+                                lineCap: 'round',
+
+                            }
+                        }, {
+                            classMinValue: 80,
+                            classMaxValue: 100,
+                            symbol: {
+                                strokeStyle: '#BD1F36',
+                                lineWidth: 8,
                                 lineCap: 'round',
 
                             }
                         }, {
                             classMinValue: 100,
-                            classMaxValue: 200,
-                            symbol: {
-                                strokeStyle: '#B21E35',
-                                lineWidth: 5,
-                                lineCap: 'round',
-
-                            }
-                        }, {
-                            classMinValue: 200,
-                            classMaxValue: 400,
-                            symbol: {
-                                strokeStyle: '#BD1F36',
-                                lineWidth: 7,
-                                lineCap: 'round',
-
-                            }
-                        }, {
-                            classMinValue: 400,
-                            classMaxValue: 500,
+                            classMaxValue: 120,
                             symbol: {
                                 strokeStyle: '#C71F37',
-                                lineWidth: 9,
+                                lineWidth: 10,
                                 lineCap: 'round',
 
                             }
                         }, {
-                            classMinValue: 500,
-                            classMaxValue: 1000,
+                            classMinValue: 120,
+                            classMaxValue: 140,
                             symbol: {
                                 strokeStyle: '#DA1E37',
                                 lineWidth: 12,
@@ -185,9 +179,8 @@
                 }).addTo(map);
 
                 oneToManyFlowmapLayer.on('click', function (e) {
-                    console.log(e)
-                    selection = e.layer.feature.properties.dest_school;
-                    document.getElementById('infod').innerHTML = selection
+
+                    selection = e.layer.feature.properties.destination;
 
                     if (e.sharedOriginFeatures.length) {
                         oneToManyFlowmapLayer.selectFeaturesForPathDisplay(e.sharedOriginFeatures, 'SELECTION_NEW');
@@ -197,7 +190,6 @@
                     }
                 });
 
-
                 oneToManyFlowmapLayer.selectFeaturesForPathDisplayById('origin_id', 9, true, 'SELECTION_NEW');
 
             }
@@ -206,10 +198,10 @@
         var neighborhood = L.geoJSON(null, {
             style: {
                 fillColor: 'white',
-                weight: 3,
-                opacity: .5,
+                weight: 2,
+                opacity: .3,
 
-                dashArray: '3',
+                dashArray: '8',
                 fillOpacity: 0
             },
             onEachFeature: (feature, layer) => {
@@ -218,10 +210,17 @@
             }
         });
 
+
         var overlayMaps = {
-            "Boundaries": neighborhood
+            "Place": neighborhood
         };
-        
+        var basemaps = {
+            "World Imagery": sat,
+            "Base Map": base
+
+
+        };
+
 
         fetch(neighbourhoodZones)
             .then(res => {
