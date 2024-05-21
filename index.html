@@ -42,9 +42,9 @@
         var neighbourhoodZones = "https://raw.githubusercontent.com/hbbhattarai/OD_Gelephu/main/data/boud.geojson";
 
         if (L.Browser.mobile) {
-            map.setView([26.896745, 90.356278], 12);
+            map.setView([26.92, 90.356278], 12);
         } else {
-            map.setView([26.896745, 90.356278], 12);
+            map.setView([26.92, 90.356278], 12);
         }
         var oneToManyFlowmapLayer;
         var base = L.esri.basemapLayer('DarkGray').addTo(map);
@@ -221,6 +221,7 @@
         var overlayMaps = {
             "Boundaries": neighborhood
         };
+        
 
         fetch(neighbourhoodZones)
             .then(res => {
