@@ -95,20 +95,20 @@
         if (geoJsonFeature.properties.isOrigin) {
           return {
             renderer: canvasRenderer, // recommended to use L.canvas()
-            radius: 5,
+            radius: 10,
             weight: 1,
-            color: 'rgb(195, 255, 62)',
-            fillColor: 'rgba(195, 255, 62, 0.6)',
-            fillOpacity: 0.6
+            color: '#E97451',
+            fillColor: '#FFE6A8',
+            fillOpacity: 0.7
           };
         } else {
           return {
             renderer: canvasRenderer,
-            radius: 2.5,
-            weight: 0.25,
-            color: 'rgb(17, 142, 170)',
-            fillColor: 'rgb(17, 142, 170)',
-            fillOpacity: 0.7
+            radius: 9,
+            weight: 1,
+            color: '#E97451',
+            fillColor: '#FFE6A8',
+            fillOpacity: 0.8
           };
         }
       }
