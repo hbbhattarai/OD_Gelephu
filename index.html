@@ -40,7 +40,10 @@
         var map = L.map('mapid');
         var selection;
         var neighbourhoodZones = "https://raw.githubusercontent.com/hbbhattarai/OD_Gelephu/main/data/boud.geojson";
-
+        var imageUrl = './data/Legend.png';
+        var imageBounds = [[26.86, 90.36], [26.90, 90.43]];
+        var overlay = L.imageOverlay(imageUrl, imageBounds);
+        overlay.addTo(map);
         if (L.Browser.mobile) {
             map.setView([26.90, 90.399278], 13);
         } else {
@@ -100,7 +103,7 @@
                             classMinValue: 0,
                             classMaxValue: 8,
                             symbol: {
-                                strokeStyle: 'blue',
+                                strokeStyle: '#E74C3C',
                                 lineWidth: 1,
                                 lineCap: 'round',
 
@@ -109,16 +112,16 @@
                             classMinValue: 8,
                             classMaxValue: 16,
                             symbol: {
-                                strokeStyle: 'Indigo',
+                                strokeStyle: '#9B59B6',
                                 lineWidth: 4,
                                 lineCap: 'round',
 
                             }
-                        },  {
+                        }, {
                             classMinValue: 16,
                             classMaxValue: 24,
                             symbol: {
-                                strokeStyle: 'Orange',
+                                strokeStyle: '#3498DB',
                                 lineWidth: 8,
                                 lineCap: 'round',
 
@@ -127,7 +130,7 @@
                             classMinValue: 24,
                             classMaxValue: 40,
                             symbol: {
-                                strokeStyle: 'Voilet',
+                                strokeStyle: '#1ABC9C',
                                 lineWidth: 10,
                                 lineCap: 'round',
 
@@ -136,25 +139,25 @@
                             classMinValue: 40,
                             classMaxValue: 60,
                             symbol: {
-                                strokeStyle: 'yellow',
+                                strokeStyle: '#9FE2BF',
                                 lineWidth: 12,
                                 lineCap: 'round',
 
                             }
-                        },{
+                        }, {
                             classMinValue: 60,
                             classMaxValue: 100,
                             symbol: {
-                                strokeStyle: 'Pink',
+                                strokeStyle: '#F1C40F',
                                 lineWidth: 13,
                                 lineCap: 'round',
 
                             }
-                        },{
+                        }, {
                             classMinValue: 100,
                             classMaxValue: 150,
                             symbol: {
-                                strokeStyle: 'Maroon',
+                                strokeStyle: '#DC7633',
                                 lineWidth: 14,
                                 lineCap: 'round',
 
@@ -164,7 +167,7 @@
                             classMinValue: 150,
                             classMaxValue: 200,
                             symbol: {
-                                strokeStyle: 'Green',
+                                strokeStyle: '#DE3163',
                                 lineWidth: 15,
                                 lineCap: 'round',
 
@@ -174,7 +177,7 @@
                             classMinValue: 200,
                             classMaxValue: 500,
                             symbol: {
-                                strokeStyle: 'Cyan',
+                                strokeStyle: '#CCCCFF',
                                 lineWidth: 17,
                                 lineCap: 'round',
 
@@ -184,7 +187,7 @@
                         ],
 
                         defaultSymbol: {
-                            strokeStyle: 'Tan',
+                            strokeStyle: '#CCCCFF',
                             lineWidth: 0.5,
                             lineCap: 'round',
 
@@ -218,7 +221,7 @@
             style: {
                 fillColor: 'white',
                 weight: 2,
-                color:'red',
+                color: 'red',
                 opacity: 0.7,
                 dashArray: '4',
                 fillOpacity: .1
